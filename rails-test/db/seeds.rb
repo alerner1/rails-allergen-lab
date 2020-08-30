@@ -5,14 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.destroy_all
-Recipe.destroy_all
-Ingredient.destroy_all
-UserIngredient.destroy_all
-RecipeIngredient.destroy_all
-
-me = User.create(name: "ayelet")
-milk = Ingredient.create(name: "milk")
-cereal = Ingredient.create(name: "cereal")
-cnm = Recipe.create(name: "cnm", user: me)
-RecipeIngredient.create(recipe: cnm, ingredient: milk)
