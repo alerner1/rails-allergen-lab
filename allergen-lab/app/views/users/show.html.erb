@@ -1,0 +1,7 @@
+<% @user.recipes.each do |recipe| %>
+  <%= recipe.name %>
+<% end %>
+
+<%= form_for @user, :method => :delete do |f| %>
+  <%= f.submit :value => "Delete" %> 
+<% end %>

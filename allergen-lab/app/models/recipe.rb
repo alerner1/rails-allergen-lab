@@ -2,17 +2,14 @@ class Recipe < ApplicationRecord
   belongs_to :user
   has_many :recipe_ingredients
   has_many :ingredients, through: :recipe_ingredients
+  accepts_nested_attributes_for :ingredients
 
-  def self.search(search)
-    if search
-      @recipe = Recipe.find_by(name: search)
-      if @recipe
-        self.where(recipe_id: @recipe)
-      else
-        Recipe.all
-      end
-    else
-      Recipe.all
+  def self.sort_by_ingredients(recipes)
+
+    num_ingredients = recipes.sort_by do |recipe|
+      recipe.ingredients.length
     end
+
+    num_ingredients.reverse
   end
 end

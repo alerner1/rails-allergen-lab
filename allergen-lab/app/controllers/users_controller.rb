@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @user = User.all
+    @users = User.all
   end
 
   def show
@@ -28,6 +28,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user.user_ingredients.each do |u_i|
+      u_i.destroy
+    end
+    @user.recipes.each do |recipe|
+      recipe.recipe_ingredients.each do |r_i|
+        r_i.destroy
+      end
+      recipe.destroy
+    end
     @user.destroy
 
     redirect_to users_path

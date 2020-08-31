@@ -2,7 +2,7 @@ class IngredientsController < ApplicationController
   before_action :find_ingredient, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ingredient = Ingredient.all
+    @ingredients = Ingredient.all.sort_by { |i| i.users.length }.reverse
   end
 
   def show

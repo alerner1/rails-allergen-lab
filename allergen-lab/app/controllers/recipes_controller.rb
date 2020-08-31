@@ -2,7 +2,15 @@ class RecipesController < ApplicationController
   before_action :find_recipe, only: [:show, :edit, :update, :destroy]
 
   def index
-    @recipes = Recipe.search(params[:q])
+    if params[:q]
+      @recipes = Recipe.where("name LIKE ?", "%" + params[:q] + "%")
+    else 
+      @recipes = Recipe.all
+    end
+
+    if params[:sort]
+      @recipes = Recipe.sort_by_ingredients(@recipes)
+    end
   end
 
   def show
@@ -36,7 +44,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :user_id, :q)
+    params.require(:recipe).permit(:name, :user_id, :q, :sort, ingredient_ids: [])
   end
 
   def find_recipe
